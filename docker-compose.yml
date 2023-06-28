@@ -29,8 +29,6 @@ services:
       MONGODB_NAME: mi
 
       REDIS_HOST: redis
-    ports:
-      - "9000:9000"
     volumes:
       - ./app:/app
 
