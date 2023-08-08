@@ -7,7 +7,7 @@ services:
     ports:
       - "8808:80"
     volumes:
-      - ./app:/app
+      - ./project:/app
 
   php-fpm:
     build:
@@ -18,19 +18,14 @@ services:
       APP_DEBUG: 1
       PHP_IDE_CONFIG: serverName=API
 
-      DB_HOST: api-maria
+      DB_HOST: db
       DB_USER: mi
       DB_PASS: test
       DB_NAME: mi
 
-      MONGODB_HOST: api-mongo
-      MONGODB_USER: mi
-      MONGODB_PASS: test
-      MONGODB_NAME: mi
-
       REDIS_HOST: redis
     volumes:
-      - ./app:/app
+      - ./project:/app
 
   php-cli:
     build:
@@ -40,20 +35,15 @@ services:
       APP_ENV: local
       APP_DEBUG: 1
 
-      DB_HOST: maria
+      DB_HOST: db
       DB_USER: mi
       DB_PASS: test
       DB_NAME: mi
 
-      MONGODB_HOST: mongo
-      MONGODB_USER: mi
-      MONGODB_PASS: test
-      MONGODB_NAME: mi
-
       REDIS_HOST: redis
 
     volumes:
-      - ./app:/app
+      - ./project:/app
 
   db:
     image: mariadb:10.5
@@ -71,13 +61,7 @@ services:
 
   redis:
     image: "redis:alpine"
-    command: redis-server /usr/local/etc/redis/redis.conf --save 20 1 --loglevel warning
+    command: redis-server --save 20 1 --loglevel warning
     restart: always
     volumes:
       - ./data/db/redis:/data
-      - type: bind
-        source: ./docker/redis/redis.conf
-        target: /usr/local/etc/redis/redis.conf
-      - type: bind
-        source: ./docker/redis/sysctl.conf
-        target: /etc/sysctl.d/sysctl.conf
