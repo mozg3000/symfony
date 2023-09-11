@@ -1,3 +1,4 @@
+init: pull build install
 pull:
 	docker-compose pull
 build:
