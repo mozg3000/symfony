@@ -19,9 +19,9 @@ services:
       PHP_IDE_CONFIG: serverName=API
 
       DB_HOST: db
-      DB_USER: mi
-      DB_PASS: test
-      DB_NAME: mi
+      DB_USER: db_u
+      DB_PASS: dlrong
+      DB_NAME: db_app
 
       REDIS_HOST: redis
     volumes:
@@ -37,9 +37,9 @@ services:
       APP_DEBUG: 1
 
       DB_HOST: db
-      DB_USER: mi
-      DB_PASS: test
-      DB_NAME: mi
+      DB_USER: db_u
+      DB_PASS: dlrong
+      DB_NAME: db_app
 
       REDIS_HOST: redis
 
@@ -51,15 +51,15 @@ services:
     image: mariadb:10.5
     restart: always
     environment:
-      MYSQL_DATABASE: mi
-      MYSQL_USER: mi
-      MYSQL_PASSWORD: test
-      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: db_app
+      MYSQL_USER: db_u
+      MYSQL_PASSWORD: dlrong
+      MYSQL_ROOT_PASSWORD: iormenid
     command: [ '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci' ]
     volumes:
       - ./data/db/maria:/var/lib/mysql
     ports:
-      - "3307:3306"
+      - "33077:3306"
 
   redis:
     image: "redis:alpine"
